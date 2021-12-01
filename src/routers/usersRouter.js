@@ -7,7 +7,7 @@ import * as usersController from "../controllers/usersController.js";
 const saltRounds = 8;
 const myPlaintextPassword = "password";
 
-mongoose.connect("mongodb://localhost:27017/userApp");
+mongoose.connect("mongodb://localhost:27017/userMgapp");
 const usersRouter = express.Router();
 
 // CREATE
@@ -37,9 +37,13 @@ usersRouter.post("/login", async (req, res) => {
   const user = await usersController.readOneUserWithUserName(userName);
   console.log(user);
   if (user) {
-    req.session.user = user;
-    req.session.save();
-    res.send(`User logged in: ${JSON.stringify(user)}`);
+    bcrypt.compare("password", user.hash).then((passwordIsOk) => {
+      if (passwordIsOk) {
+        req.session.user = user;
+        req.session.save();
+        res.send(`User logged in: ${JSON.stringify(user)}`);
+      }
+    });
   } else {
     res.status(500).send("bad login");
   }

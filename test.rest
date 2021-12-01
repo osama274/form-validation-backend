@@ -5,7 +5,7 @@ POST {{url}}/create
 content-type: application/json
  
 {
-    "userName": "BBBBBB",
+    "userName": "mmmmm",
     "password1": "12345678",
     "password2": "12345678",
     "email": "username1@mail.com"
@@ -36,5 +36,5 @@ content-type: application/json
 }
 
 ### DELETE user
-DELETE {{url}}/delete/61a6429d073131bc6aee5a60
+DELETE {{url}}/delete/61a78bac39020c81b9442fce
 content-type: application/json
